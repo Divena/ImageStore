@@ -1,0 +1,22 @@
+﻿@using Microsoft.AspNet.Identity
+@model ImageStore.Models.CommentView
+
+<div class="well">
+    
+    <h3>
+        <strong>@Model.UserName</strong>
+        <span class="pull-right label label-primary">@Model.DatePubishing</span>
+    </h3>
+@if (!((!Request.IsAuthenticated) || (User.IsInRole("User") && User.Identity.GetUserId() != Model.UserID)))
+{
+    using (Html.BeginForm("Delete", "Comments"))
+    {
+        <div class="pull-right">
+            @Html.HiddenFor(x => x.CommentID)
+            <input type="submit" class="btn btn-danger" value="удалить" />
+        </div>
+    }
+}
+    <span class="lead">@Model.Text</span>
+</div>
+

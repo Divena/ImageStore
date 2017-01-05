@@ -1,0 +1,16 @@
+﻿@using ImageStore.HtmlHelpers
+@using ImageStore.Models
+@model ImageStore.Models.ListViewModel<CommentView>
+
+
+    <h1></h1>
+    @foreach (var p in @Model.Items)
+    {
+        @Html.Partial("CommetnSummary", p)
+    }
+
+    <div class="btn-group pull-right">
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index","Image",
+        new { imageID = Model.image.ImageID, page = x }))
+    </div>
+

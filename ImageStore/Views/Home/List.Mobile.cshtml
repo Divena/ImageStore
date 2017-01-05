@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "ListModel";
+}
+
+@section Scripts {
+    <script>
+    var model = {
+        images: ko.observableArray()
+    };
+
+    function sendAjaxRequest(httpMethod, callback, url) {
+        $.ajax("/api/web" + (url ? "/" + url : ""), {
+            type: httpMethod,
+            success: callback
+        });
+    }
+
+    function getAllItems() {
+        sendAjaxRequest("GET", function (data) {
+            model.images.removeAll();
+            for (var i = 0; i < data.length; i++) {
+                model.images.push(data[i]);
+            }
+        });
+    }
+</script>
+}
+
+

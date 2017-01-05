@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNet.Identity
+@using ImageStore.HtmlHelpers
+@using ImageStore.Models
+
+@model ImageStore.Models.ListViewModel<CommentView>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row panel">
+
+    @if (!((!Request.IsAuthenticated) || (User.IsInRole("User") && User.Identity.GetUserId() != Model.image.UserID)))
+    {
+
+    <div class="navbar-fixed-top">
+        <div style="height:60px"></div>
+        <div id="categories" class="col-sm-2 hidden-xs">
+            @Html.Action("ImageMenu", "Nav")
+        </div>
+    </div>
+    }
+    <img class="img-thumbnail" width="500" height="500"
+         src="@Url.Action("GetPicture", "Home",
+                new {imageId = Model.image.ImageID })" />
+    <div class="pull-right">
+        <div class="well">
+            <h3>Название: @Model.image.Name</h3>
+            <h4>Комментарий к снимку: @Model.image.Comment</h4>
+            <h5>Дата публикации: @Model.image.DatePublishing</h5>
+            @Html.RouteLink("Показать на карте", new
+            {
+                controller = "Image",
+                action = "gps",
+                ImageID = Model.image.ImageID
+            }, new
+            {
+                @class = "btn btn-success"
+            })
+            <h6></h6>
+        </div>
+     </div>
+</div>
+<h1></h1>
+<h1></h1>
+<div id="comments" class="panel panel-primary" >
+    <div class="panel-heading">Комментарии</div>
+    <div class="panel-body">
+        @Html.Action("List", "Comments", new { ImageID = Model.image.ImageID, page = Model.PagingInfo.CurrentPage})
+    </div>
+</div>
+@if (Request.IsAuthenticated)
+{
+    @Html.Action("AddComment", "Comments", new { imageid = Model.image.ImageID })
+}

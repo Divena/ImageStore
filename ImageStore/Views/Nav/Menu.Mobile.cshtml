@@ -1,0 +1,21 @@
+﻿@using ImageStore.Models
+@using Microsoft.AspNet.Identity
+@model IEnumerable<Category>
+
+<div class="btn-group btn-group-sm btn-group-justified">
+    @foreach (var link in Model)
+    {
+        @Html.RouteLink(link.Name, new
+{
+    controller = "Home",
+    action = "List",
+    category = link.CategoryID,
+    page = 1,
+    userid = ViewBag.currentuser
+}, new
+{
+    @class = "btn btn-default btn-sm"
+     + (link.CategoryID == ViewBag.SelectedCategory ? " btn-primary" : "")
+})
+    }
+    </div>

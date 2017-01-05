@@ -1,0 +1,23 @@
+﻿@using ImageStore.HtmlHelpers
+@using ImageStore.Models
+@model ImageStore.Models.ListViewModel<Image>
+@{
+    ViewBag.Title = "images";
+}
+
+<div class="navbar-fixed-top">
+    <div style="height:60px"></div>
+    <div id="categories" class="col-sm-2">
+        @Html.Action("Menu", "Nav")
+    </div>
+</div>
+
+@foreach (var p in @Model.Items)
+{
+    @Html.Partial("ImageSummary", p)
+}
+
+<div class="btn-group pull-right">
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("List",
+        new { page = x, category = Model.CurrentCategory, userid = Model.PagingInfo.UserID }))
+</div>

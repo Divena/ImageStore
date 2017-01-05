@@ -1,0 +1,25 @@
+﻿@model ImageStore.Models.Image
+
+<div class="well">
+    @if (Model.Picture != null)
+    {
+        <img class="img-thumbnail" width="600" height="600"
+             src="@Url.Action("GetPicture", "Home",
+                new {imageId = Model.ImageID })" />
+    }
+    <h3>
+        <strong>@Model.Name</strong>
+
+    </h3>
+
+@Html.RouteLink("Подробнее", new
+{
+    controller = "Image",
+    action = "Index",
+    imageID = Model.ImageID
+}, new
+{
+    @class = "btn btn-success"
+})
+
+</div>

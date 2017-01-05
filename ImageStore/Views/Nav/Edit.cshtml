@@ -1,0 +1,41 @@
+﻿@using ImageStore.Models
+@model ImageStore.Models.EditViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="panel-success">
+    <div class="panel-heading text-center">
+        <h4>Редактирование изображения</h4>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm("Edit", "Nav", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(x => x.image.ImageID);
+
+            <div class="form-group">
+                <label>Название:</label>
+                @Html.TextBoxFor(x => x.image.Name)
+            </div>
+            <p>
+                <div class="form-group">
+                    <label>Категория:</label>
+                    @Html.DropDownListFor(x => x.image.CategoryID,
+    (IEnumerable<SelectListItem>)Model.Categories, "выбрать");
+                </div>
+            </p>
+            <img class="img-thumbnail" width="500" height="500"
+                 src="@Url.Action("GetPicture", "Home",
+                new {imageId = Model.image.ImageID })" />
+
+                <div class="panel-footer">
+                    <input type="submit" value="Сохранить" class="btn btn-primary" />
+                    @Html.ActionLink("Отмена", "Index", null, new
+           {
+               @class = "btn btn-default"
+           })
+                </div>
+        }
+    </div>
+</div>

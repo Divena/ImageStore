@@ -1,0 +1,41 @@
+﻿@model ImageStore.Models.Image
+
+@{
+    ViewBag.Title = "gps";
+}
+<script src="http://maps.google.com/maps/api/js?key=AIzaSyDzgtyCIaSuICf0yrWyCjHAbGVllw3yd4k" type="text/javascript"></script>
+
+<div id="canvas" style="height: 600px; width:600px;"></div>
+<div class="hidden">
+    <input type="text" id="lat" value=@Model.Latitude />
+    <input type="text" id="lng" value=@Model.Longitude />
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+        GetMap();
+    });
+    function GetMap() {
+        var lat = parseFloat(($("#lat").val()).replace(",", "."));
+        var lng = parseFloat(($("#lng").val()).replace(",", "."));
+        google.maps.visualRefresh = true;
+
+        var point = new google.maps.LatLng(lat, lng);
+
+        var mapOptions = {
+            zoom: 15,
+            center: point,
+            mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+        };
+        var map = new google.maps.Map(document.getElementById("canvas"), mapOptions);
+       
+                var marker = new google.maps.Marker({
+                    'position': new google.maps.LatLng(lat, lng),
+                    'map': map
+                });
+               marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
+    }
+    </script>
+}

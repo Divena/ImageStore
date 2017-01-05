@@ -1,0 +1,15 @@
+﻿@model ImageStore.Models.Comment
+
+
+
+@using (Html.BeginForm("AddComment", "Comments", FormMethod.Post))
+{
+
+    @Html.HiddenFor(x => x.ImageID);
+    @Html.TextAreaFor(x=> x.Text, new { @class = "form-control", rows = 5 })
+
+    <div class="panel-footer">
+        <input type="submit" value="Сохранить" class="btn btn-primary" />
+        
+    </div>
+}

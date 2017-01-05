@@ -1,0 +1,30 @@
+﻿@model ImageStore.Models.Image
+
+@Html.RouteLink("Загрузить", new
+{
+    controller = "Nav",
+    action = "Create",
+}, new
+{
+    @class = "btn btn-block btn-default btn-lg"
+})
+
+@Html.RouteLink("Редактировать", new
+{
+    controller = "Nav",
+    action = "Edit",
+    imageid = Model.ImageID
+}, new
+{
+    @class = "btn btn-block btn-default btn-lg"
+})
+
+@Html.RouteLink("Удалить", new
+{
+    controller = "Nav",
+    action = "Delete",
+    imageid = Model.ImageID
+}, new
+{
+    @class = "btn btn-block btn-default btn-lg"
+})
